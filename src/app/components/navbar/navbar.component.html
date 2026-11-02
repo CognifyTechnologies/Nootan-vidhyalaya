@@ -1,0 +1,123 @@
+<!-- Top Information Bar (Clean: Address, Trust, Affiliation & Admission Ticker) -->
+<div class="top-bar">
+  <div class="container top-bar-content">
+    <div class="top-info-left">
+      <span><i class="fa-solid fa-location-dot"></i> {{ langService.t().topbar.address }}</span>
+    </div>
+    <div class="top-info-right">
+      <span class="badge-trust"><i class="fa-solid fa-award"></i> {{ langService.t().topbar.trust }}</span>
+      <span class="divider">|</span>
+      <span class="badge-affil">{{ langService.t().topbar.affiliation }}</span>
+      <a href="#admission" class="admission-ticker"><i class="fa-solid fa-bell"></i> {{ langService.t().topbar.admissionOpen }}</a>
+    </div>
+  </div>
+</div>
+
+<!-- Main Navigation Header -->
+<header class="main-header">
+  <div class="container-fluid header-container">
+    <!-- Brand Logo & School Title -->
+    <a href="#" class="brand-link">
+      <img src="images/logo.png" alt="નૂતન વિદ્યાલય લોગો" class="school-logo">
+      <div class="brand-text">
+        <h1 class="school-name">{{ langService.t().nav.brandTitle }}</h1>
+        <p class="school-motto">{{ langService.t().nav.brandSubtitle }}</p>
+      </div>
+    </a>
+
+    <!-- Desktop Navigation Menu (Crisp, Single-line, perfectly aligned) -->
+    <nav class="desktop-nav">
+      <ul class="nav-links">
+        <li><a href="#home" class="nav-link">{{ langService.t().nav.home }}</a></li>
+        <li><a href="#about" class="nav-link">{{ langService.t().nav.about }}</a></li>
+        <li><a href="#academics" class="nav-link">{{ langService.t().nav.academics }}</a></li>
+        <li><a href="#activities" class="nav-link">{{ langService.t().nav.activities }}</a></li>
+        <li><a href="#celebrations" class="nav-link nav-patriotic"><i class="fa-solid fa-flag text-saffron"></i> {{ langService.t().nav.celebrations }}</a></li>
+        <li><a href="#gallery" class="nav-link">{{ langService.t().nav.gallery }}</a></li>
+        <li><a href="#notices" class="nav-link">{{ langService.t().nav.notices }}</a></li>
+        <li><a href="#contact" class="nav-link">{{ langService.t().nav.contact }}</a></li>
+      </ul>
+    </nav>
+
+    <!-- Header Actions: Language Switcher + Admission CTA -->
+    <div class="header-actions">
+      <!-- Language Switcher: Gujarati / English -->
+      <div class="lang-switch-box" title="ભાષા બદલો / Switch Language">
+        <button 
+          type="button"
+          class="lang-btn" 
+          [class.active]="langService.currentLang() === 'gu'"
+          (click)="switchLang('gu')">
+          🇮🇳 ગુજરાતી
+        </button>
+        <button 
+          type="button"
+          class="lang-btn" 
+          [class.active]="langService.currentLang() === 'en'"
+          (click)="switchLang('en')">
+          🌐 ENG
+        </button>
+      </div>
+
+      <!-- Admission CTA Button -->
+      <a href="#admission" class="btn btn-accent btn-sm header-cta">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <span>{{ langService.t().nav.admission }}</span>
+      </a>
+
+      <!-- Admin Portal Button -->
+      <button type="button" class="admin-icon-btn" (click)="onAdminClick($event)" [title]="langService.t().nav.adminPortal">
+        <i class="fa-solid fa-clipboard-list"></i>
+      </button>
+
+      <!-- Mobile Hamburger Toggle -->
+      <button type="button" class="mobile-toggle" (click)="toggleMobileMenu()" [attr.aria-expanded]="isMobileMenuOpen()">
+        <i class="fa-solid" [class.fa-bars]="!isMobileMenuOpen()" [class.fa-xmark]="isMobileMenuOpen()"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Dropdown Navigation -->
+  @if (isMobileMenuOpen()) {
+    <div class="mobile-menu-overlay" (click)="closeMobileMenu()">
+      <div class="mobile-menu" (click)="$event.stopPropagation()">
+        <div class="mobile-lang-switch">
+          <button 
+            type="button" 
+            class="lang-btn" 
+            [class.active]="langService.currentLang() === 'gu'" 
+            (click)="switchLang('gu')">
+            🇮🇳 ગુજરાતી (Default)
+          </button>
+          <button 
+            type="button" 
+            class="lang-btn" 
+            [class.active]="langService.currentLang() === 'en'" 
+            (click)="switchLang('en')">
+            🌐 English
+          </button>
+        </div>
+
+        <ul class="mobile-nav-links">
+          <li><a href="#home" (click)="closeMobileMenu()"><i class="fa-solid fa-house"></i> {{ langService.t().nav.home }}</a></li>
+          <li><a href="#about" (click)="closeMobileMenu()"><i class="fa-solid fa-school"></i> {{ langService.t().nav.about }}</a></li>
+          <li><a href="#academics" (click)="closeMobileMenu()"><i class="fa-solid fa-book-open"></i> {{ langService.t().nav.academics }}</a></li>
+          <li><a href="#activities" (click)="closeMobileMenu()"><i class="fa-solid fa-volleyball"></i> {{ langService.t().nav.activities }}</a></li>
+          <li><a href="#celebrations" (click)="closeMobileMenu()" class="highlight"><i class="fa-solid fa-flag text-saffron"></i> {{ langService.t().nav.celebrations }}</a></li>
+          <li><a href="#gallery" (click)="closeMobileMenu()"><i class="fa-solid fa-images"></i> {{ langService.t().nav.gallery }}</a></li>
+          <li><a href="#notices" (click)="closeMobileMenu()"><i class="fa-solid fa-bullhorn"></i> {{ langService.t().nav.notices }}</a></li>
+          <li><a href="#contact" (click)="closeMobileMenu()"><i class="fa-solid fa-phone"></i> {{ langService.t().nav.contact }}</a></li>
+        </ul>
+
+        <div class="mobile-cta-wrapper">
+          <a href="#admission" (click)="closeMobileMenu()" class="btn btn-accent btn-block">
+            <i class="fa-solid fa-graduation-cap"></i> {{ langService.t().nav.admission }}
+          </a>
+          <button type="button" (click)="onAdminClick($event)" class="btn btn-outline btn-block mt-2">
+            <i class="fa-solid fa-clipboard-list"></i> {{ langService.t().nav.adminPortal }}
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</header>

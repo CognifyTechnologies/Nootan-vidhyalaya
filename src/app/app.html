@@ -1,0 +1,39 @@
+<!-- Top Navigation Header -->
+<app-navbar (openAdmin)="openAdmin()"></app-navbar>
+
+<main class="page-main">
+  <!-- Hero Section with Building Image & Counters -->
+  <app-hero></app-hero>
+
+  <!-- About Us Section -->
+  <app-about></app-about>
+
+  <!-- Academics & Facilities Section -->
+  <app-academics></app-academics>
+
+  <!-- Sports & Co-Curricular Activities Section (from user poster) -->
+  <app-activities></app-activities>
+
+  <!-- Special Celebrations (15 August & 26 January with user photos) -->
+  <app-celebrations></app-celebrations>
+
+  <!-- Interactive Photo Gallery with Lightbox -->
+  <app-gallery></app-gallery>
+
+  <!-- Circulars & Notice Board -->
+  <app-notices></app-notices>
+
+  <!-- Complete Online Admission Form (Exact requested fields & email service) -->
+  <app-admission></app-admission>
+
+  <!-- Contact Us & Location Map -->
+  <app-contact></app-contact>
+</main>
+
+<!-- Footer -->
+<app-footer (openAdmin)="openAdmin()"></app-footer>
+
+<!-- Admin / Admissions Portal Modal -->
+@if (isAdminOpen()) {
+  <app-admin-modal (close)="closeAdmin()"></app-admin-modal>
+}

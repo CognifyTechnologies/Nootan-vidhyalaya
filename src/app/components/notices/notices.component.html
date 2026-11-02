@@ -1,0 +1,33 @@
+<section id="notices" class="notices-section">
+  <div class="container">
+    <!-- Header -->
+    <div class="section-header">
+      <span class="section-badge">
+        <i class="fa-solid fa-bullhorn"></i> {{ langService.t().notices.badge }}
+      </span>
+      <h2 class="section-title">{{ langService.t().notices.title }}</h2>
+      <p class="section-subtitle">{{ langService.t().notices.subtitle }}</p>
+    </div>
+
+    <div class="notices-grid">
+      @for (item of langService.t().notices.items; track item.title) {
+        <div class="notice-card">
+          <div class="notice-date-box">
+            <i class="fa-solid fa-calendar-days"></i>
+            <span>{{ item.date }}</span>
+          </div>
+          <div class="notice-body">
+            <span class="notice-tag">{{ item.tag }}</span>
+            <h4 class="notice-title">{{ item.title }}</h4>
+          </div>
+          <div class="notice-action">
+            <a href="#admission" class="btn btn-outline btn-sm">
+              <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+

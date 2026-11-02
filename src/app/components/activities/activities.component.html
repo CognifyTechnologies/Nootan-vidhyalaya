@@ -1,0 +1,59 @@
+<section id="activities" class="activities-section">
+  <div class="container">
+    <!-- Header -->
+    <div class="section-header">
+      <span class="section-badge">
+        <i class="fa-solid fa-trophy"></i> {{ langService.t().activities.badge }}
+      </span>
+      <h2 class="section-title">{{ langService.t().activities.title }}</h2>
+      <p class="section-subtitle">{{ langService.t().activities.subtitle }}</p>
+    </div>
+
+    <!-- Official Activities Poster Highlight Banner -->
+    <div class="poster-banner-card">
+      <div class="poster-banner-grid">
+        <div class="poster-img-container">
+          <img src="images/sports-activities.jpg" alt="સ્પોર્ટ્સ અને સહ-અભ્યાસિક પ્રવૃત્તિઓ પોસ્ટર" class="poster-img">
+          <div class="poster-badge-overlay">
+            <i class="fa-solid fa-circle-check"></i> સત્તાવાર પ્રવૃત્તિ કેલેન્ડર
+          </div>
+        </div>
+
+        <div class="poster-text-content">
+          <span class="poster-subtag">{{ langService.t().activities.posterNotice }}</span>
+          <h3 class="poster-heading">SHREE VIDHYALAY • SEVA • SANSKAR • SANG</h3>
+          <h4 class="poster-motto">Sports & Co-Curricular Activities: Play • Learn • Grow</h4>
+          <p class="poster-desc">
+            નૂતન વિદ્યાલય કરણનગરમાં અભ્યાસની સાથે સાથે વિદ્યાર્થીઓના શારીરિક અને બૌદ્ધિક ઘડતર માટે આંતરરાષ્ટ્રીય સ્તરની સ્પોર્ટ્સ અને કલા તાલીમ આપવામાં આવે છે. દર અઠવાડિયે વિશિષ્ટ પ્રવૃત્તિ પીરિયડ્સ અને નિષ્ણાત કોચ દ્વારા માર્ગદર્શન ઉપલબ્ધ છે.
+          </p>
+
+          <!-- Core Pillars from Poster -->
+          <div class="poster-pillars-wrap">
+            @for (tag of langService.t().activities.bottomTags; track tag) {
+              <div class="pillar-tag-chip">
+                <i class="fa-solid fa-medal"></i> {{ tag }}
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8 Activity Cards Grid matching Poster items -->
+    <div class="activity-cards-grid">
+      @for (item of langService.t().activities.items; track item.name) {
+        <div class="activity-card">
+          <div class="activity-card-header">
+            <div class="act-icon-box">
+              <i class="fa-solid" [class]="item.icon"></i>
+            </div>
+            <span class="act-star"><i class="fa-solid fa-star"></i></span>
+          </div>
+          <h4 class="act-title">{{ item.name }}</h4>
+          <p class="act-desc">{{ item.desc }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+

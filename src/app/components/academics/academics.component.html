@@ -1,0 +1,136 @@
+<section id="academics" class="academics-section">
+  <div class="container">
+    <!-- Header -->
+    <div class="section-header">
+      <span class="section-badge">
+        <i class="fa-solid fa-graduation-cap"></i> {{ langService.t().academics.badge }}
+      </span>
+      <h2 class="section-title">{{ langService.t().academics.title }}</h2>
+      <p class="section-subtitle">{{ langService.t().academics.subtitle }}</p>
+    </div>
+
+    <!-- Educational Streams / Standards Grid -->
+    <div class="streams-grid">
+      <!-- 1. Pre-Primary -->
+      <div class="stream-card">
+        <div class="stream-icon-box bg-blue">
+          <i class="fa-solid fa-shapes"></i>
+        </div>
+        <div class="stream-content">
+          <span class="stream-tag">ધોરણ: બાલવાટિકા</span>
+          <h3 class="stream-title">{{ langService.t().academics.prePrimary }}</h3>
+          <p class="stream-desc">{{ langService.t().academics.prePrimaryDesc }}</p>
+          <ul class="stream-list">
+            <li><i class="fa-solid fa-circle-check"></i> રમતગમત દ્વારા શિક્ષણ</li>
+            <li><i class="fa-solid fa-circle-check"></i> શિશુ વિકાસ પ્રવૃત્તિઓ</li>
+            <li><i class="fa-solid fa-circle-check"></i> વાત્સલ્યપૂર્ણ વાતાવરણ</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 2. Primary -->
+      <div class="stream-card">
+        <div class="stream-icon-box bg-gold">
+          <i class="fa-solid fa-book-open-reader"></i>
+        </div>
+        <div class="stream-content">
+          <span class="stream-tag">ધોરણ: ૧ થી ૮</span>
+          <h3 class="stream-title">{{ langService.t().academics.primary }}</h3>
+          <p class="stream-desc">{{ langService.t().academics.primaryDesc }}</p>
+          <ul class="stream-list">
+            <li><i class="fa-solid fa-circle-check"></i> પાયાનું ભાષા અને ગણિત જ્ઞાન</li>
+            <li><i class="fa-solid fa-circle-check"></i> પર્યાવરણ અને સામાન્ય જ્ઞાન</li>
+            <li><i class="fa-solid fa-circle-check"></i> સતત અને સર્વગ્રાહી મૂલ્યાંકન</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 3. Secondary -->
+      <div class="stream-card">
+        <div class="stream-icon-box bg-navy">
+          <i class="fa-solid fa-school"></i>
+        </div>
+        <div class="stream-content">
+          <span class="stream-tag">ધોરણ: ૯ અને ૧૦ (GSEB)</span>
+          <h3 class="stream-title">{{ langService.t().academics.secondary }}</h3>
+          <p class="stream-desc">{{ langService.t().academics.secondaryDesc }}</p>
+          <ul class="stream-list">
+            <li><i class="fa-solid fa-circle-check"></i> બોર્ડ પરીક્ષાનું વિશેષ માર્ગદર્શન</li>
+            <li><i class="fa-solid fa-circle-check"></i> સાપ્તાહિક પરીક્ષા પદ્ધતિ</li>
+            <li><i class="fa-solid fa-circle-check"></i> ૧૦૦% ઝળહળતું બોર્ડ પરિણામ</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 4. Higher Secondary (Commerce & Arts) -->
+      <div class="stream-card">
+        <div class="stream-icon-box bg-purple">
+          <i class="fa-solid fa-chart-line"></i>
+        </div>
+        <div class="stream-content">
+          <span class="stream-tag">ધોરણ: ૧૧ અને ૧૨ (સામાન્ય પ્રવાહ)</span>
+          <h3 class="stream-title">{{ langService.t().academics.higherSecondary }}</h3>
+          <p class="stream-desc">{{ langService.t().academics.higherSecondaryDesc }}</p>
+          <ul class="stream-list">
+            <li><i class="fa-solid fa-circle-check"></i> કોમર્સ પ્રવાહ (એકાઉન્ટ, સ્ટેટ, બી.એ., ઇકો)</li>
+            <li><i class="fa-solid fa-circle-check"></i> આર્ટ્સ પ્રવાહ (મનોવિજ્ઞાન, ભૂગોળ, સમાજશાસ્ત્ર)</li>
+            <li><i class="fa-solid fa-circle-check"></i> કમ્પ્યુટર શિક્ષણ & કારકિર્દી માર્ગદર્શન</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Campus & Infrastructure Showcase -->
+    <div class="facilities-showcase">
+      <div class="facilities-title-bar">
+        <h3><i class="fa-solid fa-building-columns"></i> આધુનિક શૈક્ષણિક સુવિધાઓ (World-Class Infrastructure)</h3>
+      </div>
+
+      <div class="facilities-grid">
+        <div class="facility-card">
+          <div class="facility-img-wrap">
+            <img src="images/classroom.jpg" alt="ડિજિટલ સ્માર્ટ ક્લાસરૂમ" class="facility-img">
+            <span class="facility-badge"><i class="fa-solid fa-display"></i> સ્માર્ટ ક્લાસ</span>
+          </div>
+          <div class="facility-info">
+            <h4>{{ langService.t().academics.features[0].title }}</h4>
+            <p>{{ langService.t().academics.features[0].desc }}</p>
+          </div>
+        </div>
+
+        <div class="facility-card">
+          <div class="facility-img-wrap">
+            <img src="images/computer-lab.jpg" alt="કમ્પ્યુટર લેબ" class="facility-img">
+            <span class="facility-badge"><i class="fa-solid fa-laptop-code"></i> આઈટી સેન્ટર</span>
+          </div>
+          <div class="facility-info">
+            <h4>{{ langService.t().academics.features[1].title }}</h4>
+            <p>{{ langService.t().academics.features[1].desc }}</p>
+          </div>
+        </div>
+
+        <div class="facility-card">
+          <div class="facility-img-wrap">
+            <img src="images/library.jpg" alt="સમૃદ્ધ લાઈબ્રેરી" class="facility-img">
+            <span class="facility-badge"><i class="fa-solid fa-book"></i> પુસ્તકાલય</span>
+          </div>
+          <div class="facility-info">
+            <h4>{{ langService.t().academics.features[2].title }}</h4>
+            <p>{{ langService.t().academics.features[2].desc }}</p>
+          </div>
+        </div>
+
+        <div class="facility-card">
+          <div class="facility-img-wrap">
+            <img src="images/sports-day.jpg" alt="વિશાળ રમતોત્સવ" class="facility-img">
+            <span class="facility-badge"><i class="fa-solid fa-trophy"></i> રમતગમત</span>
+          </div>
+          <div class="facility-info">
+            <h4>{{ langService.t().academics.features[3].title }}</h4>
+            <p>{{ langService.t().academics.features[3].desc }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,241 @@
+<div class="admin-backdrop" (click)="onClose()">
+  <div class="admin-modal-card" (click)="$event.stopPropagation()">
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <div class="header-title-box">
+        <div class="admin-emblem">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <div>
+          <h2>{{ langService.t().admin.title }}</h2>
+          <p>{{ langService.t().admin.subtitle }} ({{ langService.t().admin.totalCount }} {{ admissionService.admissions().length }})</p>
+        </div>
+      </div>
+
+      <div class="header-action-buttons">
+        <button type="button" class="btn btn-outline btn-sm" (click)="exportCsv()">
+          <i class="fa-solid fa-file-csv"></i> {{ langService.t().admin.exportCsv }}
+        </button>
+        <button type="button" class="modal-close-icon" (click)="onClose()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Search & Filter Controls -->
+    <div class="controls-bar">
+      <div class="search-input-wrap">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input 
+          type="text" 
+          [ngModel]="searchQuery()" 
+          (ngModelChange)="searchQuery.set($event)" 
+          class="form-control" 
+          [placeholder]="langService.t().admin.searchPlaceholder">
+      </div>
+    </div>
+
+    <!-- Submissions Table -->
+    <div class="table-responsive-box">
+      @if (filteredList().length === 0) {
+        <div class="no-records-msg">
+          <i class="fa-solid fa-folder-open"></i>
+          <p>{{ langService.t().admin.noData }}</p>
+        </div>
+      } @else {
+        <table class="admissions-table">
+          <thead>
+            <tr>
+              <th>{{ langService.t().admin.tableNo }}</th>
+              <th>{{ langService.t().admin.tableId }}</th>
+              <th>{{ langService.t().admin.tableName }}</th>
+              <th>{{ langService.t().admin.tableStd }}</th>
+              <th>{{ langService.t().admin.tableParent }}</th>
+              <th>{{ langService.t().admin.tableDate }}</th>
+              <th>સ્થિતિ</th>
+              <th>{{ langService.t().admin.tableActions }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of filteredList(); track item.id; let i = $index) {
+              <tr>
+                <td>{{ i + 1 }}</td>
+                <td><span class="app-id-pill">{{ item.id }}</span></td>
+                <td>
+                  <strong>{{ item.studentName }}</strong>
+                  <div class="small-sub">{{ item.gender }} | DOB: {{ item.dob }}</div>
+                </td>
+                <td><span class="std-badge">{{ item.standard }}</span></td>
+                <td>
+                  <div>{{ item.fatherName }}</div>
+                  <div class="small-sub"><a [href]="'tel:' + item.mobile"><i class="fa-solid fa-phone"></i> {{ item.mobile }}</a></div>
+                </td>
+                <td class="date-col">{{ item.submittedAt | date:'shortDate' }}</td>
+                <td>
+                  <select 
+                    [ngModel]="item.status || 'Pending'" 
+                    (ngModelChange)="updateStatus(item.id || '', $event)"
+                    class="status-select"
+                    [class.status-pending]="item.status === 'Pending'"
+                    [class.status-verified]="item.status === 'Verified'"
+                    [class.status-admitted]="item.status === 'Admitted'">
+                    <option value="Pending">Pending</option>
+                    <option value="Verified">Verified</option>
+                    <option value="Admitted">Admitted</option>
+                  </select>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-primary btn-sm" (click)="viewDetail(item)">
+                    <i class="fa-solid fa-eye"></i> {{ langService.t().admin.viewPrint }}
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+    </div>
+
+    <!-- Footer of Modal -->
+    <div class="modal-bottom-bar">
+      <span>ઓનલાઇન પ્રવેશ અરજી પ્રણાલી - નૂતન વિદ્યાલય કરણનગર</span>
+      <button type="button" class="btn btn-outline btn-sm" (click)="onClose()">
+        {{ langService.t().gallery.close }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Detail / Print Preview Sub-modal -->
+  @if (selectedRecord(); as rec) {
+    <div class="detail-backdrop" (click)="closeDetail()">
+      <div class="detail-modal-card" (click)="$event.stopPropagation()">
+        <div class="detail-top-nav no-print">
+          <div class="nav-left">
+            <button type="button" class="btn btn-outline btn-sm" (click)="closeDetail()">
+              <i class="fa-solid fa-arrow-left"></i> પાછા જાઓ
+            </button>
+          </div>
+          <div class="nav-right">
+            <button type="button" class="btn btn-accent btn-sm" (click)="printCurrent()">
+              <i class="fa-solid fa-print"></i> પહોંચ પ્રિન્ટ કરો
+            </button>
+            <button type="button" class="modal-close-icon" (click)="closeDetail()">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Official Print Paper Structure -->
+        <div class="official-slip-document" id="adminPrintSlip">
+          <div class="slip-school-header">
+            <img src="images/logo.png" alt="નૂતન વિદ્યાલય લોગો" class="slip-school-logo">
+            <div class="slip-header-text">
+              <h2>શ્રી નૂતન વિદ્યાલય કરણનગર</h2>
+              <p class="slip-motto">{{ langService.t().nav.brandSubtitle }}</p>
+              <p class="slip-sub">કરણનગર, તા. કડી, જી. મહેસાણા (ઉત્તર ગુજરાત) - ૩૮૨૭૧૫</p>
+              <div class="slip-type-badge">ઓનલાઇન પ્રવેશ અરજી પહોંચ / ADMISSION APPLICATION</div>
+            </div>
+          </div>
+
+          <div class="slip-meta-strip">
+            <div class="meta-item">
+              <span class="meta-lbl">અરજી ક્રમાંક:</span>
+              <span class="meta-val highlight-app-id">{{ rec.id }}</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-lbl">તારીખ:</span>
+              <span class="meta-val">{{ rec.submittedAt | date:'medium' }}</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-lbl">સ્થિતિ:</span>
+              <span class="meta-val status-val">{{ rec.status || 'Pending' }}</span>
+            </div>
+          </div>
+
+          <div class="slip-tables-wrap">
+            <h4 class="slip-sec-heading">૧. વિદ્યાર્થીની માહિતી (Student Details)</h4>
+            <table class="slip-table">
+              <tr>
+                <th width="35%">વિદ્યાર્થીનું પૂરું નામ:</th>
+                <td width="65%"><strong>{{ rec.studentName }}</strong></td>
+              </tr>
+              <tr>
+                <th>જન્મ તારીખ:</th>
+                <td>{{ rec.dob }}</td>
+              </tr>
+              <tr>
+                <th>જાતિ (Gender):</th>
+                <td>{{ rec.gender }}</td>
+              </tr>
+              <tr>
+                <th>પ્રવેશ ઇચ્છિત ધોરણ:</th>
+                <td><span class="badge-std">{{ rec.standard }}</span></td>
+              </tr>
+              <tr>
+                <th>શૈક્ષણિક વર્ષ:</th>
+                <td>{{ rec.academicYear }}</td>
+              </tr>
+            </table>
+
+            <h4 class="slip-sec-heading">૨. વાલી / માતા-પિતાની માહિતી (Parent Details)</h4>
+            <table class="slip-table">
+              <tr>
+                <th width="35%">પિતાનું નામ:</th>
+                <td width="65%">{{ rec.fatherName }}</td>
+              </tr>
+              <tr>
+                <th>માતાનું નામ:</th>
+                <td>{{ rec.motherName }}</td>
+              </tr>
+              <tr>
+                <th>મોબાઇલ નંબર:</th>
+                <td><strong>{{ rec.mobile }}</strong></td>
+              </tr>
+              <tr>
+                <th>ઈમેલ:</th>
+                <td>{{ rec.email || 'N/A' }}</td>
+              </tr>
+              <tr>
+                <th>સરનામું:</th>
+                <td>{{ rec.address }}</td>
+              </tr>
+            </table>
+
+            @if (rec.prevSchoolName) {
+              <h4 class="slip-sec-heading">૩. અગાઉની શાળાની માહિતી</h4>
+              <table class="slip-table">
+                <tr>
+                  <th width="35%">અગાઉની શાળા & ધોરણ:</th>
+                  <td>{{ rec.prevSchoolName }} (ધોરણ: {{ rec.prevStandard || '-' }} | બોર્ડ: {{ rec.prevBoard || '-' }})</td>
+                </tr>
+              </table>
+            }
+
+            @if (rec.suggestion) {
+              <h4 class="slip-sec-heading">૪. વાલીનો સંદેશ / સૂચન</h4>
+              <p style="padding: 0.5rem; background: #f8fafc; border: 1px solid #e2e8f0; font-size: 0.88rem;">
+                {{ rec.suggestion }}
+              </p>
+            }
+          </div>
+
+          <div class="slip-signatures-row">
+            <div class="sig-col">
+              <div class="sig-line"></div>
+              <span>વાલીની સહી</span>
+            </div>
+            <div class="sig-col center-seal">
+              <div class="seal-circle">
+                <span>શાળા સિક્કો</span>
+              </div>
+            </div>
+            <div class="sig-col">
+              <div class="sig-line"></div>
+              <span>આચાર્યશ્રી / કાર્યાલય સહી</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

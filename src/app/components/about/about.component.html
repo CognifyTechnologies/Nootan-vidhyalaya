@@ -1,0 +1,91 @@
+<section id="about" class="about-section">
+  <div class="container">
+    <!-- Header -->
+    <div class="section-header">
+      <span class="section-badge">
+        <i class="fa-solid fa-landmark-dome"></i> {{ langService.t().about.badge }}
+      </span>
+      <h2 class="section-title">{{ langService.t().about.title }}</h2>
+      <p class="section-subtitle">{{ langService.t().about.p1 }}</p>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="about-grid">
+      <!-- Left Column: Story & Philosophy -->
+      <div class="about-story-col">
+        <div class="story-card">
+          <div class="emblem-quote-box">
+            <img src="images/logo.png" alt="નૂતન વિદ્યાલય લોગો" class="about-logo">
+            <div class="quote-text">
+              <h3>{{ langService.t().nav.brandSubtitle }}</h3>
+            </div>
+          </div>
+          
+          <p class="story-p">{{ langService.t().about.p2 }}</p>
+
+          <!-- 3 Pillars Grid -->
+          <div class="pillars-grid">
+            <div class="pillar-card">
+              <div class="pillar-icon"><i class="fa-solid fa-eye"></i></div>
+              <h4>{{ langService.t().about.visionTitle }}</h4>
+              <p>{{ langService.t().about.visionDesc }}</p>
+            </div>
+
+            <div class="pillar-card">
+              <div class="pillar-icon"><i class="fa-solid fa-bullseye"></i></div>
+              <h4>{{ langService.t().about.missionTitle }}</h4>
+              <p>{{ langService.t().about.missionDesc }}</p>
+            </div>
+
+            <div class="pillar-card">
+              <div class="pillar-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+              <h4>{{ langService.t().about.valuesTitle }}</h4>
+              <p>{{ langService.t().about.valuesDesc }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Principal's Desk Message & Campus Snapshot -->
+      <div class="about-principal-col">
+        <div class="principal-card">
+          <div class="principal-header">
+            <div class="avatar-ring">
+              <i class="fa-solid fa-user-tie"></i>
+            </div>
+            <div>
+              <span class="principal-badge"><i class="fa-solid fa-feather-pointed"></i> {{ langService.t().about.principalTitle }}</span>
+              <h3 class="principal-name">{{ langService.t().about.principalName }}</h3>
+              <p class="principal-role">{{ langService.t().about.principalRole }}</p>
+            </div>
+          </div>
+
+          <blockquote class="principal-quote">
+            <i class="fa-solid fa-quote-left quote-mark"></i>
+            <p>{{ langService.t().about.principalMessage }}</p>
+          </blockquote>
+
+          <div class="principal-footer">
+            <div class="signature-tag">
+              <span class="sig-title">સંચાલક & આચાર્ય કાર્યાલય</span>
+              <span class="sig-loc">નૂતન વિદ્યાલય કરણનગર</span>
+            </div>
+            <a href="#admission" class="btn btn-primary btn-sm">
+              <i class="fa-solid fa-pen-to-square"></i> પ્રવેશ મેળવો
+            </a>
+          </div>
+        </div>
+
+        <!-- Campus Image Box -->
+        <div class="campus-preview-card">
+          <img src="images/campus-view.jpg" alt="શાળા કેમ્પસ" class="campus-img">
+          <div class="campus-caption">
+            <i class="fa-solid fa-seedling"></i>
+            <span>હરિયાળું, શાંત અને શૈક્ષણિક પર્યાવરણ સભર કેમ્પસ</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

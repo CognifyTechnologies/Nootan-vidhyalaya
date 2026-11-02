@@ -1,0 +1,89 @@
+<section id="home" class="hero-section">
+  <!-- Dynamic Background with Overlay -->
+  <div class="hero-bg-wrapper">
+    <img src="images/school-building.jpg" alt="નૂતન વિદ્યાલય કરણનગર કેમ્પસ" class="hero-bg-img">
+    <div class="hero-overlay"></div>
+  </div>
+
+  <div class="container hero-content">
+    <div class="hero-inner">
+      <!-- Badge -->
+      <div class="hero-badge-pill">
+        <span class="pulse-dot"></span>
+        <span>{{ langService.t().hero.badge }}</span>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="hero-main-title">
+        {{ langService.t().hero.title }}
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="hero-desc">
+        {{ langService.t().hero.subtitle }}
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="hero-buttons">
+        <a href="#admission" class="btn btn-accent btn-lg shadow-glow">
+          <i class="fa-solid fa-file-pen"></i>
+          <span>{{ langService.t().hero.ctaAdmission }}</span>
+        </a>
+        <a href="#about" class="btn btn-white btn-lg">
+          <i class="fa-solid fa-circle-info"></i>
+          <span>{{ langService.t().hero.ctaExplore }}</span>
+        </a>
+        <a href="#contact" class="btn btn-glass btn-lg">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>{{ langService.t().nav.contact }}</span>
+        </a>
+      </div>
+
+      <!-- Quick Trust Indicators / Stats Grid -->
+      <div class="hero-stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fa-solid fa-landmark"></i></div>
+          <div class="stat-number">{{ langService.t().hero.statYears }}</div>
+          <div class="stat-label">{{ langService.t().hero.statYearsDesc }}</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fa-solid fa-user-graduate"></i></div>
+          <div class="stat-number">{{ langService.t().hero.statStudents }}</div>
+          <div class="stat-label">{{ langService.t().hero.statStudentsDesc }}</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fa-solid fa-trophy"></i></div>
+          <div class="stat-number">{{ langService.t().hero.statResults }}</div>
+          <div class="stat-label">{{ langService.t().hero.statResultsDesc }}</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+          <div class="stat-number">{{ langService.t().hero.statFaculty }}</div>
+          <div class="stat-label">{{ langService.t().hero.statFacultyDesc }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- News & Notification Ticker -->
+<div class="news-ticker-bar">
+  <div class="container ticker-flex">
+    <div class="ticker-badge">
+      <i class="fa-solid fa-bullhorn"></i>
+      <span>{{ langService.t().ticker.label }}</span>
+    </div>
+    <div class="ticker-marquee-track">
+      <div class="ticker-marquee-content">
+        @for (item of langService.t().ticker.items; track item) {
+          <span class="ticker-item">
+            <i class="fa-solid fa-star-of-life"></i> {{ item }}
+          </span>
+        }
+      </div>
+    </div>
+  </div>
+</div>

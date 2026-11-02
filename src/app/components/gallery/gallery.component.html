@@ -1,0 +1,90 @@
+<section id="gallery" class="gallery-section">
+  <div class="container">
+    <!-- Header -->
+    <div class="section-header">
+      <span class="section-badge">
+        <i class="fa-solid fa-camera-retro"></i> {{ langService.t().gallery.badge }}
+      </span>
+      <h2 class="section-title">{{ langService.t().gallery.title }}</h2>
+      <p class="section-subtitle">{{ langService.t().gallery.subtitle }}</p>
+
+      <!-- Filter Buttons -->
+      <div class="gallery-filters">
+        <button 
+          type="button" 
+          class="filter-pill" 
+          [class.active]="activeFilter() === 'all'" 
+          (click)="setFilter('all')">
+          <i class="fa-solid fa-border-all"></i> {{ langService.t().gallery.filterAll }}
+        </button>
+        <button 
+          type="button" 
+          class="filter-pill patriotic-pill" 
+          [class.active]="activeFilter() === 'national'" 
+          (click)="setFilter('national')">
+          <i class="fa-solid fa-flag"></i> {{ langService.t().gallery.filterNational }}
+        </button>
+        <button 
+          type="button" 
+          class="filter-pill" 
+          [class.active]="activeFilter() === 'sports'" 
+          (click)="setFilter('sports')">
+          <i class="fa-solid fa-volleyball"></i> {{ langService.t().gallery.filterActivities }}
+        </button>
+        <button 
+          type="button" 
+          class="filter-pill" 
+          [class.active]="activeFilter() === 'campus'" 
+          (click)="setFilter('campus')">
+          <i class="fa-solid fa-building-columns"></i> {{ langService.t().gallery.filterCampus }}
+        </button>
+        <button 
+          type="button" 
+          class="filter-pill" 
+          [class.active]="activeFilter() === 'academic'" 
+          (click)="setFilter('academic')">
+          <i class="fa-solid fa-flask"></i> {{ langService.t().gallery.filterAcademic }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="gallery-grid">
+      @for (item of filteredItems; track item.id) {
+        <div class="gallery-item-card" (click)="openLightbox(item)">
+          <div class="gallery-img-wrap">
+            <img [src]="item.src" [alt]="langService.currentLang() === 'gu' ? item.titleGu : item.titleEn" class="gallery-img" loading="lazy">
+            <div class="gallery-overlay">
+              <span class="zoom-btn"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+              <div class="overlay-text">
+                <h4>{{ langService.currentLang() === 'gu' ? item.titleGu : item.titleEn }}</h4>
+                <p>{{ langService.currentLang() === 'gu' ? item.descGu : item.descEn }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Interactive Lightbox Modal -->
+  @if (selectedItem(); as current) {
+    <div class="lightbox-backdrop" (click)="closeLightbox()">
+      <div class="lightbox-modal" (click)="$event.stopPropagation()">
+        <button type="button" class="lightbox-close" (click)="closeLightbox()" [attr.aria-label]="langService.t().gallery.close">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div class="lightbox-image-box">
+          <img [src]="current.src" [alt]="langService.currentLang() === 'gu' ? current.titleGu : current.titleEn" class="lightbox-img">
+        </div>
+
+        <div class="lightbox-caption">
+          <h3>{{ langService.currentLang() === 'gu' ? current.titleGu : current.titleEn }}</h3>
+          <p>{{ langService.currentLang() === 'gu' ? current.descGu : current.descEn }}</p>
+        </div>
+      </div>
+    </div>
+  }
+</section>
+

@@ -1,0 +1,515 @@
+<section id="admission" class="admission-section">
+  <div class="container">
+    <!-- Header -->
+    <div class="section-header">
+      <span class="section-badge">
+        <i class="fa-solid fa-file-signature"></i> {{ langService.t().admission.badge }}
+      </span>
+      <h2 class="section-title">{{ langService.t().admission.title }}</h2>
+      <p class="section-subtitle">{{ langService.t().admission.subtitle }}</p>
+    </div>
+
+    <div class="admission-wrapper">
+      <!-- Clean Notice Banner (No public email shown) -->
+      <div class="email-dispatch-notice">
+        <div class="notice-icon"><i class="fa-solid fa-file-circle-check"></i></div>
+        <div class="notice-text">
+          <strong>{{ langService.t().admission.emailServiceNote }}</strong>
+          <span>{{ langService.t().admission.formNotice }}</span>
+        </div>
+      </div>
+
+      <!-- Error Alert -->
+      @if (errorMessage()) {
+        <div class="alert-error">
+          <i class="fa-solid fa-circle-exclamation"></i>
+          <span>{{ errorMessage() }}</span>
+        </div>
+      }
+
+      <!-- Admission Form -->
+      <form #admissionForm="ngForm" (ngSubmit)="onSubmit(admissionForm)" novalidate class="admission-form-card">
+        
+        <!-- SECTION 1: વિદ્યાર્થીની માહિતી (Student Information) -->
+        <div class="form-section-block">
+          <div class="section-title-bar">
+            <span class="step-num">૧</span>
+            <h3>{{ langService.t().admission.sec1Title }}</h3>
+          </div>
+
+          <div class="form-grid">
+            <!-- Student Full Name * -->
+            <div class="form-group full-width">
+              <label for="studentName" class="form-label">
+                {{ langService.t().admission.studentName }} <span class="required">*</span>
+              </label>
+              <div class="input-icon-wrap">
+                <i class="fa-solid fa-user"></i>
+                <input 
+                  type="text" 
+                  id="studentName" 
+                  name="studentName" 
+                  [(ngModel)]="formData.studentName" 
+                  required 
+                  class="form-control"
+                  [placeholder]="langService.currentLang() === 'gu' ? 'દા.ત. પટેલ આયુષ વિપુલભાઈ' : 'e.g. Patel Ayush Vipulbhai'">
+              </div>
+            </div>
+
+            <!-- Date of Birth * -->
+            <div class="form-group">
+              <label for="dob" class="form-label">
+                {{ langService.t().admission.dob }} <span class="required">*</span>
+              </label>
+              <div class="input-icon-wrap">
+                <i class="fa-solid fa-calendar-day"></i>
+                <input 
+                  type="date" 
+                  id="dob" 
+                  name="dob" 
+                  [(ngModel)]="formData.dob" 
+                  required 
+                  class="form-control">
+              </div>
+            </div>
+
+            <!-- Gender * -->
+            <div class="form-group">
+              <label class="form-label">
+                {{ langService.t().admission.gender }} <span class="required">*</span>
+              </label>
+              <div class="radio-pill-group">
+                <label class="radio-pill" [class.selected]="formData.gender.includes('પુરુષ') || formData.gender.includes('Male')">
+                  <input type="radio" name="gender" [(ngModel)]="formData.gender" [value]="langService.currentLang() === 'gu' ? 'પુરુષ (Male)' : 'Male'">
+                  <i class="fa-solid fa-person"></i> {{ langService.t().admission.genderMale }}
+                </label>
+                <label class="radio-pill" [class.selected]="formData.gender.includes('સ્ત્રી') || formData.gender.includes('Female')">
+                  <input type="radio" name="gender" [(ngModel)]="formData.gender" [value]="langService.currentLang() === 'gu' ? 'સ્ત્રી (Female)' : 'Female'">
+                  <i class="fa-solid fa-person-dress"></i> {{ langService.t().admission.genderFemale }}
+                </label>
+                <label class="radio-pill" [class.selected]="formData.gender.includes('અન્ય') || formData.gender.includes('Other')">
+                  <input type="radio" name="gender" [(ngModel)]="formData.gender" [value]="langService.currentLang() === 'gu' ? 'અન્ય (Other)' : 'Other'">
+                  {{ langService.t().admission.genderOther }}
+                </label>
+              </div>
+            </div>
+
+            <!-- Standard to admit * -->
+            <div class="form-group">
+              <label for="standard" class="form-label">
+                {{ langService.t().admission.standard }} <span class="required">*</span>
+              </label>
+              <div class="input-icon-wrap">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <select 
+                  id="standard" 
+                  name="standard" 
+                  [(ngModel)]="formData.standard" 
+                  required 
+                  class="form-control">
+                  <option value="" disabled selected>{{ langService.t().admission.standardPlaceholder }}</option>
+                  @for (std of standardsList; track std.val) {
+                    <option [value]="std.val">
+                      {{ langService.currentLang() === 'gu' ? std.labelGu : std.labelEn }}
+                    </option>
+                  }
+                </select>
+              </div>
+            </div>
+
+            <!-- Academic Year * -->
+            <div class="form-group">
+              <label for="academicYear" class="form-label">
+                {{ langService.t().admission.academicYear }} <span class="required">*</span>
+              </label>
+              <div class="input-icon-wrap">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                <select 
+                  id="academicYear" 
+                  name="academicYear" 
+                  [(ngModel)]="formData.academicYear" 
+                  required 
+                  class="form-control">
+                  @for (yr of academicYears; track yr) {
+                    <option [value]="yr">{{ yr }}</option>
+                  }
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 2: વાલી / માતા-પિતાની માહિતી (Parent/Guardian Information) -->
+        <div class="form-section-block">
+          <div class="section-title-bar">
+            <span class="step-num">૨</span>
+            <h3>{{ langService.t().admission.sec2Title }}</h3>
+          </div>
+
+          <div class="form-grid">
+            <!-- Father's Name * -->
+            <div class="form-group">
+              <label for="fatherName" class="form-label">
+                {{ langService.t().admission.fatherName }} <span class="required">*</span>
+              </label>
+              <div class="input-icon-wrap">
+                <i class="fa-solid fa-user-tie"></i>
+                <input 
+                  type="text" 
+                  id="fatherName" 
+                  name="fatherName" 
+                  [(ngModel)]="formData.fatherName" 
+                  required 
+                  class="form-control"
+                  [placeholder]="langService.currentLang() === 'gu' ? 'પિતાનું પૂરું નામ' : 'Father\'s Full Name'">
+              </div>
+            </div>
+
+            <!-- Mother's Name * -->
+            <div class="form-group">
+              <label for="motherName" class="form-label">
+                {{ langService.t().admission.motherName }} <span class="required">*</span>
+              </label>
+              <div class="input-icon-wrap">
+                <i class="fa-solid fa-user-nurse"></i>
+                <input 
+                  type="text" 
+                  id="motherName" 
+                  name="motherName" 
+                  [(ngModel)]="formData.motherName" 
+                  required 
+                  class="form-control"
+                  [placeholder]="langService.currentLang() === 'gu' ? 'માતાનું પૂરું નામ' : 'Mother\'s Full Name'">
+              </div>
+            </div>
+
+            <!-- Mobile Number * -->
+            <div class="form-group">
+              <label for="mobile" class="form-label">
+                {{ langService.t().admission.mobile }} <span class="required">*</span>
+              </label>
+              <div class="input-icon-wrap">
+                <i class="fa-solid fa-phone"></i>
+                <input 
+                  type="tel" 
+                  id="mobile" 
+                  name="mobile" 
+                  [(ngModel)]="formData.mobile" 
+                  required 
+                  pattern="[0-9]{10}"
+                  maxlength="10"
+                  class="form-control"
+                  placeholder="98250XXXXX">
+              </div>
+            </div>
+
+            <!-- Email Address (Optional) -->
+            <div class="form-group">
+              <label for="email" class="form-label">
+                {{ langService.t().admission.email }} <span class="optional-badge">(વૈકલ્પિક / Optional)</span>
+              </label>
+              <div class="input-icon-wrap">
+                <i class="fa-solid fa-envelope"></i>
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  [(ngModel)]="formData.email" 
+                  class="form-control"
+                  placeholder="name@example.com">
+              </div>
+            </div>
+
+            <!-- Residential Address * -->
+            <div class="form-group full-width">
+              <label for="address" class="form-label">
+                {{ langService.t().admission.address }} <span class="required">*</span>
+              </label>
+              <div class="input-icon-wrap">
+                <i class="fa-solid fa-location-dot textarea-icon"></i>
+                <textarea 
+                  id="address" 
+                  name="address" 
+                  [(ngModel)]="formData.address" 
+                  required 
+                  rows="3" 
+                  class="form-control"
+                  [placeholder]="langService.currentLang() === 'gu' ? 'મકાન નં., સોસાયટી, ગામ કરણનગર, તા. કડી, જી. મહેસાણા' : 'House No., Society, Village Karannagar, Ta. Kadi, Dist. Mehsana'"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 3: અગાઉની શાળાની માહિતી (Previous School Information) -->
+        <div class="form-section-block">
+          <div class="section-title-bar">
+            <span class="step-num">૩</span>
+            <h3>{{ langService.t().admission.sec3Title }} <span class="optional-badge">(લાગુ પડતું હોય તો જ)</span></h3>
+          </div>
+
+          <div class="form-grid">
+            <!-- Previous School Name -->
+            <div class="form-group">
+              <label for="prevSchoolName" class="form-label">
+                {{ langService.t().admission.prevSchoolName }}
+              </label>
+              <div class="input-icon-wrap">
+                <i class="fa-solid fa-school"></i>
+                <input 
+                  type="text" 
+                  id="prevSchoolName" 
+                  name="prevSchoolName" 
+                  [(ngModel)]="formData.prevSchoolName" 
+                  class="form-control"
+                  [placeholder]="langService.currentLang() === 'gu' ? 'અગાઉની શાળાનું નામ' : 'Previous School Name'">
+              </div>
+            </div>
+
+            <!-- Previous Standard -->
+            <div class="form-group">
+              <label for="prevStandard" class="form-label">
+                {{ langService.t().admission.prevStandard }}
+              </label>
+              <div class="input-icon-wrap">
+                <i class="fa-solid fa-arrow-up-right-dots"></i>
+                <input 
+                  type="text" 
+                  id="prevStandard" 
+                  name="prevStandard" 
+                  [(ngModel)]="formData.prevStandard" 
+                  class="form-control"
+                  [placeholder]="langService.currentLang() === 'gu' ? 'દા.ત. ધોરણ ૭' : 'e.g. Std 7'">
+              </div>
+            </div>
+
+            <!-- Previous Board -->
+            <div class="form-group">
+              <label for="prevBoard" class="form-label">
+                {{ langService.t().admission.prevBoard }}
+              </label>
+              <div class="input-icon-wrap">
+                <i class="fa-solid fa-certificate"></i>
+                <select 
+                  id="prevBoard" 
+                  name="prevBoard" 
+                  [(ngModel)]="formData.prevBoard" 
+                  class="form-control">
+                  <option value="">-- બોર્ડ પસંદ કરો --</option>
+                  @for (b of boardsList; track b) {
+                    <option [value]="b">{{ b }}</option>
+                  }
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 4: વધારાની માહિતી (Additional Information) -->
+        <div class="form-section-block">
+          <div class="section-title-bar">
+            <span class="step-num">૪</span>
+            <h3>{{ langService.t().admission.sec4Title }}</h3>
+          </div>
+
+          <div class="form-grid">
+            <!-- How did you hear about school -->
+            <div class="form-group full-width">
+              <label for="hearAbout" class="form-label">
+                {{ langService.t().admission.hearAbout }}
+              </label>
+              <div class="input-icon-wrap">
+                <i class="fa-solid fa-comments"></i>
+                <select 
+                  id="hearAbout" 
+                  name="hearAbout" 
+                  [(ngModel)]="formData.hearAbout" 
+                  class="form-control">
+                  <option value="">-- વિકલ્પ પસંદ કરો --</option>
+                  @for (opt of langService.t().admission.hearOptions; track opt) {
+                    <option [value]="opt">{{ opt }}</option>
+                  }
+                </select>
+              </div>
+            </div>
+
+            <!-- Suggestion / Message -->
+            <div class="form-group full-width">
+              <label for="suggestion" class="form-label">
+                {{ langService.t().admission.suggestion }}
+              </label>
+              <div class="input-icon-wrap">
+                <i class="fa-solid fa-pen-nib textarea-icon"></i>
+                <textarea 
+                  id="suggestion" 
+                  name="suggestion" 
+                  [(ngModel)]="formData.suggestion" 
+                  rows="3" 
+                  class="form-control"
+                  [placeholder]="langService.t().admission.suggestionPlaceholder"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Submit Bar (Clean button only, no public email displayed) -->
+        <div class="form-submit-bar">
+          <button 
+            type="submit" 
+            class="btn btn-accent btn-lg submit-btn" 
+            [disabled]="admissionService.isSubmitting()">
+            @if (admissionService.isSubmitting()) {
+              <i class="fa-solid fa-spinner fa-spin"></i>
+              <span>{{ langService.t().admission.submitting }}</span>
+            } @else {
+              <i class="fa-solid fa-paper-plane"></i>
+              <span>{{ langService.t().admission.submitBtn }}</span>
+            }
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- SUCCESS CONFIRMATION & PRINTABLE SLIP MODAL -->
+  @if (isSubmitted() && submittedRecord(); as rec) {
+    <div class="modal-backdrop" (click)="closeSuccessModal()">
+      <div class="admission-slip-modal" (click)="$event.stopPropagation()">
+        
+        <!-- Modal Top Actions (No-print) -->
+        <div class="modal-top-bar no-print">
+          <div class="modal-title-left">
+            <i class="fa-solid fa-circle-check text-success"></i>
+            <span>{{ langService.t().admission.successTitle }}</span>
+          </div>
+          <div class="modal-actions-right">
+            <button type="button" class="btn btn-primary btn-sm" (click)="printSlip()">
+              <i class="fa-solid fa-print"></i> {{ langService.t().admission.printSlip }}
+            </button>
+            <button type="button" class="close-btn" (click)="closeSuccessModal()">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Official Printable Slip -->
+        <div class="official-slip-document" id="printableAdmissionSlip">
+          <!-- Official School Header -->
+          <div class="slip-school-header">
+            <img src="images/logo.png" alt="નૂતન વિદ્યાલય લોગો" class="slip-school-logo">
+            <div class="slip-header-text">
+              <h2>શ્રી નૂતન વિદ્યાલય કરણનગર</h2>
+              <p class="slip-motto">{{ langService.t().nav.brandSubtitle }}</p>
+              <p class="slip-sub">કરણનગર, તા. કડી, જી. મહેસાણા (ઉત્તર ગુજરાત) - ૩૮૨૭૧૫</p>
+              <div class="slip-type-badge">ઓનલાઇન પ્રવેશ અરજી પહોંચ / ADMISSION APPLICATION RECEIPT</div>
+            </div>
+          </div>
+
+          <!-- Application Meta Bar -->
+          <div class="slip-meta-strip">
+            <div class="meta-item">
+              <span class="meta-lbl">{{ langService.t().admission.appIdLabel }}:</span>
+              <span class="meta-val highlight-app-id">{{ rec.id }}</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-lbl">{{ langService.t().admission.dateLabel }}:</span>
+              <span class="meta-val">{{ rec.submittedAt | date:'medium' }}</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-lbl">શૈક્ષણિક વર્ષ:</span>
+              <span class="meta-val">{{ rec.academicYear }}</span>
+            </div>
+          </div>
+
+          <!-- Student & Parent Information Tables -->
+          <div class="slip-tables-wrap">
+            <h4 class="slip-sec-heading">૧. વિદ્યાર્થી & પ્રવેશ વિગત (Student & Admission Details)</h4>
+            <table class="slip-table">
+              <tr>
+                <th width="35%">વિદ્યાર્થીનું પૂરું નામ:</th>
+                <td width="65%"><strong>{{ rec.studentName }}</strong></td>
+              </tr>
+              <tr>
+                <th>જન્મ તારીખ (DOB):</th>
+                <td>{{ rec.dob }}</td>
+              </tr>
+              <tr>
+                <th>જાતિ (Gender):</th>
+                <td>{{ rec.gender }}</td>
+              </tr>
+              <tr>
+                <th>પ્રવેશ મેળવવા ઇચ્છિત ધોરણ:</th>
+                <td><span class="badge-std">{{ rec.standard }}</span></td>
+              </tr>
+            </table>
+
+            <h4 class="slip-sec-heading">૨. વાલીની વિગત (Parent / Guardian Details)</h4>
+            <table class="slip-table">
+              <tr>
+                <th width="35%">પિતાનું નામ:</th>
+                <td width="65%">{{ rec.fatherName }}</td>
+              </tr>
+              <tr>
+                <th>માતાનું નામ:</th>
+                <td>{{ rec.motherName }}</td>
+              </tr>
+              <tr>
+                <th>સંપર્ક નંબર (મોબાઇલ):</th>
+                <td><strong>{{ rec.mobile }}</strong></td>
+              </tr>
+              <tr>
+                <th>ઈમેલ:</th>
+                <td>{{ rec.email || 'N/A' }}</td>
+              </tr>
+              <tr>
+                <th>રહેઠાણનું સરનામું:</th>
+                <td>{{ rec.address }}</td>
+              </tr>
+            </table>
+
+            @if (rec.prevSchoolName) {
+              <h4 class="slip-sec-heading">૩. અગાઉની શાળાની વિગત</h4>
+              <table class="slip-table">
+                <tr>
+                  <th width="35%">અગાઉની શાળા:</th>
+                  <td>{{ rec.prevSchoolName }} (ધોરણ: {{ rec.prevStandard || '-' }} | બોર્ડ: {{ rec.prevBoard || '-' }})</td>
+                </tr>
+              </table>
+            }
+          </div>
+
+          <!-- Official Signatures & Seal -->
+          <div class="slip-signatures-row">
+            <div class="sig-col">
+              <div class="sig-line"></div>
+              <span>વાલીની સહી</span>
+            </div>
+            <div class="sig-col center-seal">
+              <div class="seal-circle">
+                <span>શાળા સિક્કો</span>
+              </div>
+            </div>
+            <div class="sig-col">
+              <div class="sig-line"></div>
+              <span>આચાર્યશ્રી / કાર્યાલય સહી</span>
+            </div>
+          </div>
+
+          <!-- Bottom Notice -->
+          <div class="slip-bottom-notice">
+            <p><strong>નોંધ:</strong> આ અરજી શાળા કાર્યાલયમાં સુરક્ષિત રીતે નોંધાઈ છે. પ્રવેશ પુષ્ટિ માટે જરૂરી આધાર પુરાવા (જન્મ પ્રમાણપત્ર, LC, માર્કશીટ, આધારકાર્ડ) સાથે શાળા કાર્યાલયનો સંપર્ક કરવો.</p>
+          </div>
+        </div>
+
+        <!-- Modal Bottom Actions (No-print) -->
+        <div class="modal-footer-bar no-print">
+          <button type="button" class="btn btn-outline" (click)="closeSuccessModal()">
+            {{ langService.t().admission.closeModal }}
+          </button>
+          <button type="button" class="btn btn-accent" (click)="printSlip()">
+            <i class="fa-solid fa-print"></i> {{ langService.t().admission.printSlip }}
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</section>
