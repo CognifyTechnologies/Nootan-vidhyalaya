@@ -83,6 +83,17 @@
   @if (isMobileMenuOpen()) {
     <div class="mobile-menu-overlay" (click)="closeMobileMenu()">
       <div class="mobile-menu" (click)="$event.stopPropagation()">
+        <!-- Mobile Drawer Header with Clear Close / Cancel Button -->
+        <div class="mobile-menu-header">
+          <div class="menu-header-title">
+            <i class="fa-solid fa-bars-staggered"></i>
+            <span>મેનુ / Menu</span>
+          </div>
+          <button type="button" class="mobile-menu-close" (click)="closeMobileMenu()" aria-label="Close menu" title="મેનુ બંધ કરો">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
         <div class="mobile-lang-switch">
           <button 
             type="button" 
@@ -117,6 +128,9 @@
           </a>
           <button type="button" (click)="onAdminClick($event)" class="btn btn-outline btn-block mt-2">
             <i class="fa-solid fa-clipboard-list"></i> {{ langService.t().nav.adminPortal }}
+          </button>
+          <button type="button" (click)="closeMobileMenu()" class="btn btn-close-drawer btn-block mt-2">
+            <i class="fa-solid fa-xmark"></i> બંધ કરો / Close Menu
           </button>
         </div>
       </div>
