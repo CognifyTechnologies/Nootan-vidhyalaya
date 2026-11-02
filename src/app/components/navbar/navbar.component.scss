@@ -404,15 +404,9 @@
           color: var(--primary-600);
         }
 
-        &:hover, &.highlight {
+        &:hover, &:active {
           background: #f1f5f9;
           color: var(--primary-800);
-        }
-
-        &.highlight {
-          background: #fff7ed;
-          border: 1px solid #fed7aa;
-          color: #c2410c;
         }
       }
     }
