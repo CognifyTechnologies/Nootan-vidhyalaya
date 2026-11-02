@@ -541,16 +541,69 @@
 
 @media (max-width: 768px) {
   .admission-section {
+    padding: 3.5rem 0;
+
     .admission-form-card {
-      padding: 1.75rem 1.25rem;
+      padding: 1.5rem 1rem;
 
       .form-grid {
         grid-template-columns: 1fr;
       }
+
+      .form-submit-bar {
+        .submit-btn {
+          width: 100%;
+          min-width: auto;
+          padding: 0.85rem 1.25rem;
+          font-size: 1rem;
+        }
+
+        .dispatch-target-badge {
+          text-align: center;
+          font-size: 0.78rem;
+        }
+      }
     }
 
-    .modal-backdrop .admission-slip-modal .official-slip-document {
-      padding: 1.25rem;
+    .modal-backdrop .admission-slip-modal {
+      .official-slip-document {
+        padding: 1.25rem 1rem;
+
+        .slip-school-header {
+          flex-direction: column;
+          text-align: center;
+          gap: 0.75rem;
+
+          .slip-school-logo {
+            width: 58px;
+            height: 58px;
+          }
+
+          .slip-header-text h2 {
+            font-size: 1.3rem;
+          }
+        }
+
+        .slip-meta-strip {
+          flex-direction: column;
+          gap: 0.45rem;
+        }
+
+        .slip-tables-wrap {
+          overflow-x: auto;
+        }
+
+        .slip-signatures-row {
+          flex-direction: column;
+          align-items: center;
+          gap: 1.5rem;
+
+          .sig-col {
+            width: 100%;
+            max-width: 220px;
+          }
+        }
+      }
     }
   }
 }

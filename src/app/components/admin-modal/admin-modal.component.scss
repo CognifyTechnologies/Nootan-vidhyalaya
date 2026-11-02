@@ -402,3 +402,50 @@
   }
 }
 
+@media (max-width: 768px) {
+  .admin-backdrop {
+    padding: 0.5rem;
+
+    .admin-modal-card {
+      max-height: 95vh;
+
+      .modal-header {
+        padding: 1rem;
+
+        .header-title-box {
+          gap: 0.5rem;
+
+          .admin-emblem {
+            width: 36px;
+            height: 36px;
+            font-size: 1.1rem;
+          }
+
+          h2 {
+            font-size: 1.05rem;
+          }
+
+          p {
+            font-size: 0.72rem;
+          }
+        }
+      }
+
+      .controls-bar {
+        padding: 0.75rem 1rem;
+      }
+
+      .table-responsive-box {
+        padding: 0.5rem 0.75rem 1rem 0.75rem;
+      }
+
+      .modal-bottom-bar {
+        padding: 0.75rem 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+      }
+    }
+  }
+}
+

@@ -48,14 +48,16 @@
           class="lang-btn" 
           [class.active]="langService.currentLang() === 'gu'"
           (click)="switchLang('gu')">
-          🇮🇳 ગુજરાતી
+          <span class="lang-full">🇮🇳 ગુજરાતી</span>
+          <span class="lang-short">GU</span>
         </button>
         <button 
           type="button"
           class="lang-btn" 
           [class.active]="langService.currentLang() === 'en'"
           (click)="switchLang('en')">
-          🌐 ENG
+          <span class="lang-full">🌐 ENG</span>
+          <span class="lang-short">EN</span>
         </button>
       </div>
 
